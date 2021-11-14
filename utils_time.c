@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 16:26:16 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/13 23:38:32 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/14 13:39:22 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,9 @@ int	current_time(t_data *data)
 	gettimeofday(&time, NULL);
 	ret = timeval_to_milli(&time) - data->start;
 	return (ret);
+}
+
+int	relative_time(t_philosopher *philo)
+{
+	return (current_time(philo->data) + philo->perso_start);
 }

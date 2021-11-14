@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 18:44:50 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/13 23:14:43 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/14 13:46:04 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	thinking_to_eating(t_philosopher *philo)
 {
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	philo->last_meal = timeval_to_milli(&time) - philo->data->start;
-	talk((t_philosopher *)philo, "is eating");
-	((t_philosopher *)philo)->nb_meals++;
+	take_forks(philo);
+	if (get_val(&(philo->data->death_mutex), &(philo->data->dead)))
+		return ;
+	set_val(&(philo->last_meal_mutex), relative_time(philo), &(philo->last_meal));
+	talk(philo, "is eating");
+	philo->nb_meals++;
+	my_sleep(relative_time(philo) + philo->data->maxtime.eat, philo);
+	//printf("post sleep\n");
+	put_forks(philo);
 }

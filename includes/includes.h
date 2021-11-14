@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 00:03:43 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/13 23:38:40 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/14 13:45:36 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,12 @@ typedef struct s_philosopher
 	int				id;
 	int				alive;
 	pthread_mutex_t	life_mutex;
+	int				die;
+	pthread_mutex_t	die_mutex;
 	int				last_meal;
+	pthread_mutex_t	last_meal_mutex;
 	int				nb_meals;
+	int				perso_start;
 	pthread_t		thread;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
@@ -82,7 +86,7 @@ void	put_forks(t_philosopher *philo);
 /*
 ** observing.c
 */
-void	observing_philos(t_philosopher **philos, t_data *data);
+void	observing_philos(t_philosopher *philos, t_data *data);
 
 /*
 ** parsing.c
@@ -108,12 +112,16 @@ int		get_time(struct timeval time, t_data *data);
 int		someone_hungry(t_philosopher **philos, t_data *data);
 int		died(t_philosopher *philo);
 
+
+void	my_sleep(int target, t_philosopher *philo);
 /*
 ** utils_time.c
 */
 int		timeval_to_milli(struct timeval *s_and_us);
 int		milli_to_usec(int milli);
 int		current_time(t_data *data);
+int		relative_time(t_philosopher *philo);
+
 
 /*
 ** utils.c
