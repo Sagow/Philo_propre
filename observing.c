@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 22:25:02 by krain             #+#    #+#             */
-/*   Updated: 2021/11/14 13:40:27 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/15 22:06:54 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	*life_tracking(void *p)
 		<= relative_time(philo))
 		{
 		//	printf("a\n");
+			set_val(&(philo->die_mutex), 1, &(philo->die));
 			set_val(&(philo->data->death_mutex), philo->id, &(philo->data->dead));
 			break ;
 		}

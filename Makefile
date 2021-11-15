@@ -5,7 +5,6 @@ SRCS =			error_messages.c	\
 				philosophers.c		\
 				printing.c			\
 				transitions.c		\
-				utils_philo.c		\
 				utils_time.c		\
 				utils.c				\
 
@@ -25,7 +24,7 @@ RM =			rm -f
 				${CC} -c $< -o ${<:.c=.o} ${FLAGS} -g
 				
 ${NAME}:		${OBJS}
-				${CC} ${OBJS} -g -o ${NAME} -pthread ${INCLUDES} -fsanitize=thread
+				${CC} ${OBJS} -g -o ${NAME} -pthread ${INCLUDES}
 
 all:			${NAME}
 

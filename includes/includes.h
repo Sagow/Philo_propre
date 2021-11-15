@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 00:03:43 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/14 13:45:36 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/15 22:22:50 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,24 +104,13 @@ void	announce_end(t_data *data);
 ** transitions.c
 */
 void	thinking_to_eating(t_philosopher *philo);
-
-/*
-** utils_philo.c
-*/
-int		get_time(struct timeval time, t_data *data);
-int		someone_hungry(t_philosopher **philos, t_data *data);
-int		died(t_philosopher *philo);
-
-
 void	my_sleep(int target, t_philosopher *philo);
+
 /*
 ** utils_time.c
 */
-int		timeval_to_milli(struct timeval *s_and_us);
-int		milli_to_usec(int milli);
 int		current_time(t_data *data);
 int		relative_time(t_philosopher *philo);
-
 
 /*
 ** utils.c

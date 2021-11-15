@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 00:01:37 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/09 19:21:33 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/15 22:19:22 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,14 @@ int	set_maxtime(int ac, char **av, t_timespan *maxtime)
 
 int	parsing(int ac, char **av, t_philosopher **philosophers, t_data *data)
 {
-	struct timeval	time;
-
 	if (ac < 5 || ac > 6)
 		return (err_arg_nb(ac));
 	if (set_philosophers_and_forks(av[1], philosophers, data))
 		return (err_arg_nbphilo(av[1]));
 	if (set_maxtime(ac, av, &(data->maxtime)))
 		return (err_arg_time());
-	gettimeofday(&time, NULL);
-	data->start = timeval_to_milli(&time);
+	data->start = 0;
+	data->start = current_time(data);
 	pthread_mutex_init(&(data->micro), NULL);
 	pthread_mutex_init(&(data->death_mutex), NULL);
 	data->dead = 0;
