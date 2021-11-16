@@ -6,24 +6,23 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 00:01:37 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/15 22:19:22 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/16 15:09:44 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/includes.h"
 
-int	init_forks(pthread_mutex_t **forks, int nb)
+int	init_forks(t_data *data, int nb)
 {
 	int	i;
 
 	i = 0;
 	while (i < nb)
 	{
-		if (pthread_mutex_init((*forks) + i, NULL))
+		if (pthread_mutex_init(data->forks + i, NULL))
 			return (-1);
 		i++;
 	}
-	forks[i] = NULL;
 	return (0);
 }
 
@@ -33,17 +32,17 @@ t_data *data)
 	int	nb;
 
 	nb = ft_atoi(number);
-	if (nb < 2)
+	if (nb < 1)
 		return (ERR_ARG_ATOI);
-	if (ft_malloc((void **)philosophers, sizeof(t_philosopher) * (nb + 1)))
+	if (ft_malloc((void **)&((*philosophers)), sizeof(t_philosopher) * (nb + 1)))
 		return (ERR_MALLOC);
 	if (ft_malloc((void **)(&data->forks), sizeof(pthread_mutex_t) * (nb + 1)))
 	{
-		free (*philosophers);
+		free(*philosophers);
 		return (ERR_MALLOC);
 	}
 	data->nb_philos = nb;
-	if (init_forks(&(data->forks), nb))
+	if (init_forks(data, nb))
 	{
 		free(*philosophers);
 		free(data->forks);

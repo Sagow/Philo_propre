@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 16:07:24 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/16 13:56:30 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/16 15:09:29 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,30 +76,44 @@ void	start_philos(t_philosopher *philos, t_data *data)
 	philos[i].id = 0;
 }
 
+void	one_philo(t_data *data)
+{
+	printf("%d %d has taken a fork\n", current_time(data), 1);
+	usleep(data->maxtime.death * 1000);
+	printf("%d %d died\n", current_time(data), 1);
+}
+
 int	main(int ac, char **av)
 {
 	t_philosopher	*philos;
-	t_data			data;
+	t_data			*data;
 	int				i;
 	int				survivors;
 
-	if (parsing(ac, av, &philos, &data))
+	if (ft_malloc((void **)&data, sizeof(t_data)))
 		return (1);
-	start_philos(philos, &data);
-	observing_philos(philos, &data);
-	while (!data.dead)
-		usleep(10);
-	pthread_mutex_lock(&data.micro);
-	printf("%d %d died\n", current_time(&data), data.dead);
-	pthread_mutex_unlock(&data.micro);
-	survivors = 1;
-	while (survivors)
+	if (parsing(ac, av, &philos, data))
+		return (1);
+	if (data->nb_philos == 1)
+		one_philo(data);
+	else
 	{
-		survivors = 0;
-		i = -1;
-		while (philos[++i].id)
-			survivors += get_val(&(philos[i].life_mutex), &(philos[i].alive));
+		start_philos(philos, data);
+		observing_philos(philos, data);
+		while (!data->dead)
+			usleep(10);
+		pthread_mutex_lock(&(data->micro));
+		printf("%d %d died\n", current_time(data), data->dead);
+		pthread_mutex_unlock(&(data->micro));
+		survivors = 1;
+		while (survivors)
+		{
+			survivors = 0;
+			i = -1;
+			while (philos[++i].id)
+				survivors += get_val(&(philos[i].life_mutex), &(philos[i].alive));
+		}
 	}
-	free_all(philos, &data);
+	free_all(philos, data);
 	return (0);
 }

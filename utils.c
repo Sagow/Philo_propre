@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 23:59:35 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/16 13:58:58 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/16 14:33:52 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int	free_all(t_philosopher *philosophers, t_data *data)
 	free(data->forks);
 	pthread_mutex_destroy(&(data->death_mutex));
 	pthread_mutex_destroy(&(data->micro));
+	free(data);
 	return (0);
 }

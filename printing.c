@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 16:20:53 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/14 13:28:53 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/16 14:23:14 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,3 @@ void	talk(t_philosopher *philo, char *thing)
 		pthread_mutex_unlock(&(philo->data->micro));
 	}
 }
-/*
-void	announce_end(t_data *data)
-{
-	struct timeval	timestamp;
-
-	pthread_mutex_lock(&(data->micro));
-	gettimeofday(&timestamp, NULL);
-	printf("%d all philosophers have eaten %d time(s)\n",
-		current_time(data), data->maxtime.max_meals);
-	pthread_mutex_unlock(&(data->micro));
-}
-*/
