@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 16:07:24 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/15 22:28:18 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/16 13:56:30 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,19 @@ int	suicide(t_philosopher *philo)
 
 void	my_sleep(int target, t_philosopher *philo)
 {
-	while (relative_time(philo) < target &&
-		!get_val(&(philo->data->death_mutex), &(philo->data->dead)))
+	while (relative_time(philo) < target
+		&& !get_val(&(philo->data->death_mutex), &(philo->data->dead)))
 		usleep(15);
 }
 
 void	*philosophing(void *p)
 {
-	t_data	*data;
-	t_philosopher *philo;
+	t_data			*data;
+	t_philosopher	*philo;
 
 	philo = (t_philosopher *)p;
 	data = philo->data;
-	while (data->maxtime.max_meals == -1 ||
-	(philo)->nb_meals
+	while (data->maxtime.max_meals == -1 || (philo)->nb_meals
 		< data->maxtime.max_meals)
 	{
 		if (suicide((philo)))

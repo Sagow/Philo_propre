@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 23:59:35 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/13 23:21:33 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/16 13:58:58 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,13 @@ int	free_all(t_philosopher *philosophers, t_data *data)
 	while (i < data->nb_philos)
 	{
 		pthread_mutex_destroy(&(data->forks[i]));
+		pthread_mutex_destroy(&(philosophers[i].die_mutex));
+		pthread_mutex_destroy(&(philosophers[i].last_meal_mutex));
 		i++;
 	}
 	free(philosophers);
 	free(data->forks);
 	pthread_mutex_destroy(&(data->death_mutex));
-	//pthread_mutex_unlock(&(data->micro));
 	pthread_mutex_destroy(&(data->micro));
 	return (0);
 }

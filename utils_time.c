@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 16:26:16 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/15 22:21:14 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/16 13:56:49 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	current_time(t_data *data)
 {
 	struct timeval	time;
-	int	ret;
+	int				ret;
 
 	gettimeofday(&time, NULL);
 	ret = time.tv_sec * 1000 + time.tv_usec / 1000;
