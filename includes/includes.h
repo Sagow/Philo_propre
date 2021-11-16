@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 00:03:43 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/15 22:22:50 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/16 20:08:44 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,13 @@ void	announce_end(t_data *data);
 */
 void	thinking_to_eating(t_philosopher *philo);
 void	my_sleep(int target, t_philosopher *philo);
+
+/*
+** utils_process.c
+*/
+int		suicide(t_philosopher *philo);
+void	my_sleep(int target, t_philosopher *philo);
+void	one_philo(t_data *data);
 
 /*
 ** utils_time.c

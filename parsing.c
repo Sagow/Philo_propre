@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
+/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 00:01:37 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/16 15:09:44 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/16 20:01:31 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_data *data)
 	nb = ft_atoi(number);
 	if (nb < 1)
 		return (ERR_ARG_ATOI);
-	if (ft_malloc((void **)&((*philosophers)), sizeof(t_philosopher) * (nb + 1)))
+	if (ft_malloc((void **)&((*philosophers)), sizeof(t_philosopher)
+			* (nb + 1)))
 		return (ERR_MALLOC);
 	if (ft_malloc((void **)(&data->forks), sizeof(pthread_mutex_t) * (nb + 1)))
 	{

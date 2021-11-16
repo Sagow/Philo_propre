@@ -5,6 +5,7 @@ SRCS =			error_messages.c	\
 				philosophers.c		\
 				printing.c			\
 				transitions.c		\
+				utils_process.c		\
 				utils_time.c		\
 				utils.c				\
 
