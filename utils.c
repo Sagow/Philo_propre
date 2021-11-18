@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 23:59:35 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/16 14:33:52 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/18 17:12:36 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	ft_atoi(const char *number)
 		res = res * 10 + number[i] - '0';
 		i++;
 	}
+	if (number[i])
+		return (-1);
 	return (res);
 }
 
@@ -65,11 +67,15 @@ int	free_all(t_philosopher *philosophers, t_data *data)
 		pthread_mutex_destroy(&(data->forks[i]));
 		pthread_mutex_destroy(&(philosophers[i].die_mutex));
 		pthread_mutex_destroy(&(philosophers[i].last_meal_mutex));
+		pthread_mutex_destroy(&(philosophers[i].life_obs_mutex));
 		i++;
 	}
 	free(philosophers);
 	free(data->forks);
+	if (data->observers)
+		free(data->observers);
 	pthread_mutex_destroy(&(data->death_mutex));
+	pthread_mutex_destroy(&(data->all_eaten_mutex));
 	pthread_mutex_destroy(&(data->micro));
 	free(data);
 	return (0);

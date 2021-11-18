@@ -7,13 +7,22 @@ SRCS =			error_messages.c	\
 				transitions.c		\
 				utils_process.c		\
 				utils_time.c		\
-				utils.c				\
+				utils.c
 
 OBJS =			${SRCS:.c=.o}
 
 INCLUDES =		-Iincludes
 
 FLAGS =			-Wall -Werror -Wextra ${INCLUDES}
+
+CFLAGS =		$(INCLUDES)
+
+ifeq ($(DEBUG), 1)
+	CFLAGS += -fsanitize=address
+endif
+ifeq ($(DEBUG), 2)
+	CFLAGS += -fsanitize=thread
+endif
 
 CC =			gcc
 
@@ -23,9 +32,9 @@ RM =			rm -f
 
 .c.o:
 				${CC} -c $< -o ${<:.c=.o} ${FLAGS} -g
-				
+
 ${NAME}:		${OBJS}
-				${CC} ${OBJS} -g -o ${NAME} -pthread ${INCLUDES}
+				${CC} ${OBJS} -g -o ${NAME} -pthread ${CFLAGS}
 
 all:			${NAME}
 

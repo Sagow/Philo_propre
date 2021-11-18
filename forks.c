@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 16:22:21 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/16 13:52:22 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/18 16:07:56 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,40 +21,43 @@ void	set_forks(t_philosopher *philo, t_data *data)
 		philo->right = data->forks + philo->id;
 }
 
-void	even(t_philosopher *philo)
+int	even(t_philosopher *philo)
 {
 	pthread_mutex_lock(philo->left);
 	talk(philo, "has taken a fork");
+	pthread_mutex_lock(philo->right);
 	if (get_val(&(philo->data->death_mutex), &(philo->data->dead)))
-		pthread_mutex_unlock(philo->left);
-	else
 	{
-		pthread_mutex_lock(philo->right);
-		talk(philo, "has taken a fork");
+		pthread_mutex_unlock(philo->right);
+		pthread_mutex_unlock(philo->left);
+		return (1);
 	}
+	talk(philo, "has taken a fork");
+	return (0);
 }
 
-void	odd(t_philosopher *philo)
+int	odd(t_philosopher *philo)
 {
 	pthread_mutex_lock(philo->right);
 	talk(philo, "has taken a fork");
+	pthread_mutex_lock(philo->left);
 	if (get_val(&(philo->data->death_mutex), &(philo->data->dead)))
-		pthread_mutex_unlock(philo->right);
-	else
 	{
-		pthread_mutex_lock(philo->left);
-		talk(philo, "has taken a fork");
+		pthread_mutex_unlock(philo->right);
+		pthread_mutex_unlock(philo->left);
+		return (1);
 	}
+	talk(philo, "has taken a fork");
+	return (0);
 }
 
-void	take_forks(t_philosopher *philo)
+int	take_forks(t_philosopher *philo)
 {
 	if (get_val(&(philo->data->death_mutex), &(philo->data->dead)))
-		return ;
+		return (1);
 	if (philo->id % 2 == 0)
-		even(philo);
-	else
-		odd(philo);
+		return (even(philo));
+	return (odd(philo));
 }
 
 void	put_forks(t_philosopher *philo)

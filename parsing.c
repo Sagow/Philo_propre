@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 00:01:37 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/16 20:01:31 by magostin         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:57:34 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,21 @@ int	set_maxtime(int ac, char **av, t_timespan *maxtime)
 	int	nb;
 
 	nb = ft_atoi(av[2]);
-	if (nb < 0)
+	if (nb <= 0)
 		return (ERR_ARG_ATOI);
 	maxtime->death = nb;
 	nb = ft_atoi(av[3]);
-	if (nb < 0)
+	if (nb <= 0)
 		return (ERR_ARG_ATOI);
 	maxtime->eat = nb;
 	nb = ft_atoi(av[4]);
-	if (nb < 0)
+	if (nb <= 0)
 		return (ERR_ARG_ATOI);
 	maxtime->sleep = nb;
 	if (ac == 6)
 	{
 		nb = ft_atoi(av[5]);
-		if (nb < 0)
+		if (nb <= 0)
 			return (ERR_ARG_ATOI);
 		maxtime->max_meals = nb;
 	}
@@ -87,11 +87,18 @@ int	parsing(int ac, char **av, t_philosopher **philosophers, t_data *data)
 	if (set_philosophers_and_forks(av[1], philosophers, data))
 		return (err_arg_nbphilo(av[1]));
 	if (set_maxtime(ac, av, &(data->maxtime)))
+	{
+		free(data->forks);
+		free(*philosophers);
 		return (err_arg_time());
+	}
 	data->start = 0;
 	data->start = current_time(data);
 	pthread_mutex_init(&(data->micro), NULL);
 	pthread_mutex_init(&(data->death_mutex), NULL);
 	data->dead = 0;
+	data->all_eaten = 0;
+	pthread_mutex_init(&(data->all_eaten_mutex), NULL);
+	data->observers = NULL;
 	return (0);
 }

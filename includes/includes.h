@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 00:03:43 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/16 20:08:44 by magostin         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:56:10 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include "color.h"
 
 # define ERR_ARG_NB -1
 # define ERR_ARG_ATOI -2
@@ -42,6 +43,9 @@ typedef struct s_data
 	pthread_mutex_t	micro;
 	int				dead;
 	pthread_mutex_t	death_mutex;
+	int				all_eaten;
+	pthread_mutex_t	all_eaten_mutex;
+	pthread_t		*observers;
 }					t_data;
 
 typedef struct s_philosopher
@@ -49,6 +53,8 @@ typedef struct s_philosopher
 	int				id;
 	int				alive;
 	pthread_mutex_t	life_mutex;
+	int				obs;
+	pthread_mutex_t	life_obs_mutex;
 	int				die;
 	pthread_mutex_t	die_mutex;
 	int				last_meal;
@@ -80,7 +86,7 @@ int		err_arg_time(void);
 ** forks.c
 */
 void	set_forks(t_philosopher *philo, t_data *data);
-void	take_forks(t_philosopher *philo);
+int		take_forks(t_philosopher *philo);
 void	put_forks(t_philosopher *philo);
 
 /*
