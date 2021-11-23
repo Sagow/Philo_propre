@@ -28,7 +28,7 @@
 
 typedef struct s_timespan
 {
-	int				death;
+	long int		death;
 	int				eat;
 	int				sleep;
 	int				max_meals;
@@ -60,7 +60,6 @@ typedef struct s_philosopher
 	int				last_meal;
 	pthread_mutex_t	last_meal_mutex;
 	int				nb_meals;
-	//pthread_mutex_t	nb_meals_mutex;
 	int				perso_start;
 	pthread_t		thread;
 	pthread_mutex_t	*left;
@@ -111,7 +110,7 @@ void	announce_end(t_data *data);
 ** transitions.c
 */
 void	thinking_to_eating(t_philosopher *philo);
-void	my_sleep(int target, t_philosopher *philo);
+void	kill_philos(t_philosopher *philos, t_data *data);
 
 /*
 ** utils_process.c

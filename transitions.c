@@ -27,3 +27,17 @@ void	thinking_to_eating(t_philosopher *philo)
 	my_sleep(relative_time(philo) + philo->data->maxtime.eat, philo);
 	put_forks(philo);
 }
+
+void	kill_philos(t_philosopher *philos, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (!get_val(&(data->death_mutex), &(data->dead)))
+		set_val(&(data->death_mutex), -1, &(data->dead));
+	while (i < data->nb_philos)
+	{
+		set_val(&(philos[i].die_mutex), 1, &(philos[i].die));
+		i++;
+	}
+}

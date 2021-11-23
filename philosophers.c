@@ -63,29 +63,18 @@ void	start_philos(t_philosopher *philos, t_data *data)
 void	waiting_for_death(t_philosopher *philos, t_data *data)
 {
 	int	i;
-	//int	meals;
 
 	i = 0;
-	//meals = 0;
-	while (!get_val(&(philos[i].die_mutex), &(philos[i].die)) && get_val(
-			&(data->all_eaten_mutex), &(data->all_eaten)) !=
-		data->nb_philos)
+	while (!get_val(&(philos[i].die_mutex), &(philos[i].die))
+		&& get_val(&(data->all_eaten_mutex), &(data->all_eaten))
+		!= data->nb_philos)
 	{
-		/*if (data->maxtime.max_meals != -1 && get_val(&(philos[i].nb_meals_mutex)
-				, &(philos[i].nb_meals)) >= data->maxtime.max_meals)
-				meals++;
-		if (meals == data->nb_philos)
-			break ;*/
 		i++;
 		if (i == data->nb_philos)
-		{
 			i = 0;
-			//meals = 0;
-		}
 	}
-	//if (meals == data->nb_philos)
-	if (get_val(&(data->all_eaten_mutex), &(data->all_eaten)) ==
-		data->nb_philos)
+	if (get_val(&(data->all_eaten_mutex), &(data->all_eaten))
+		== data->nb_philos)
 		set_val(&(data->death_mutex), -1, &(data->dead));
 	else
 		set_val(&(data->death_mutex), i + 1, &(data->dead));
@@ -94,14 +83,6 @@ void	waiting_for_death(t_philosopher *philos, t_data *data)
 		pthread_mutex_lock(&(data->micro));
 		printf("%d %d died\n", current_time(data), i + 1);
 		pthread_mutex_unlock(&(data->micro));
-	}
-	i = 0;
-	if (!get_val(&(data->death_mutex), &(data->dead)))
-		set_val(&(data->death_mutex), -1, &(data->dead));
-	while (i < data->nb_philos)
-	{
-		set_val(&(philos[i].die_mutex), 1, &(philos[i].die));
-		i++;
 	}
 }
 
