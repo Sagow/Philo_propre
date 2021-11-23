@@ -20,13 +20,10 @@ void	thinking_to_eating(t_philosopher *philo)
 		&(philo->last_meal));
 	talk(philo, "is eating");
 	philo->nb_meals++;
-	/*if (philo->data->maxtime.max_meals > 0 && philo->nb_meals
-		== philo->data->maxtime.max_meals)
-	{
-		pthread_mutex_lock(&(philo->data->all_eaten_mutex));
-		philo->data->all_eaten++;
-		pthread_mutex_unlock(&(philo->data->all_eaten_mutex));
-	}*/
+	if (philo->nb_meals == philo->data->maxtime.max_meals)
+		set_val(&(philo->data->all_eaten_mutex),
+			get_val(&(philo->data->all_eaten_mutex), &(philo->data->all_eaten))
+			+ 1, &(philo->data->all_eaten));
 	my_sleep(relative_time(philo) + philo->data->maxtime.eat, philo);
 	put_forks(philo);
 }

@@ -21,10 +21,7 @@ void	*life_tracking(void *p)
 	{
 		if (get_val(&(philo->last_meal_mutex), &(philo->last_meal))
 			+ philo->data->maxtime.death < current_time(philo->data))
-		{
 			set_val(&(philo->die_mutex), 1, &(philo->die));
-			//printf("%d a change de val\n", philo->id);
-		}
 	}
 	set_val(&(philo->life_obs_mutex), 0, &(philo->obs));
 	return (NULL);

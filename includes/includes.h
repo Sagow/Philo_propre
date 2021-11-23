@@ -60,6 +60,7 @@ typedef struct s_philosopher
 	int				last_meal;
 	pthread_mutex_t	last_meal_mutex;
 	int				nb_meals;
+	//pthread_mutex_t	nb_meals_mutex;
 	int				perso_start;
 	pthread_t		thread;
 	pthread_mutex_t	*left;
