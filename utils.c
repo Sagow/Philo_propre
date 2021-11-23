@@ -38,10 +38,10 @@ int	ft_malloc(void **ptr, int size)
 	return (0);
 }
 
-int	ft_atoi(const char *number)
+long int	ft_atoi(const char *number)
 {
-	int	i;
-	int	res;
+	int			i;
+	long int	res;
 
 	if (!number || number[0] < '0' || number[0] > '9')
 		return (ERR_ARG_ATOI);

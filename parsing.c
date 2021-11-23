@@ -54,24 +54,24 @@ t_data *data)
 
 int	set_maxtime(int ac, char **av, t_timespan *maxtime)
 {
-	int	nb;
+	long int	nb;
 
 	nb = ft_atoi(av[2]);
-	if (nb <= 0)
+	if (nb <= 0 || nb > __INT_MAX__)
 		return (ERR_ARG_ATOI);
 	maxtime->death = nb;
 	nb = ft_atoi(av[3]);
-	if (nb <= 0)
+	if (nb <= 0 || nb > __INT_MAX__)
 		return (ERR_ARG_ATOI);
 	maxtime->eat = nb;
 	nb = ft_atoi(av[4]);
-	if (nb <= 0)
+	if (nb <= 0 || nb > __INT_MAX__)
 		return (ERR_ARG_ATOI);
 	maxtime->sleep = nb;
 	if (ac == 6)
 	{
 		nb = ft_atoi(av[5]);
-		if (nb <= 0)
+		if (nb <= 0 || nb > __INT_MAX__)
 			return (ERR_ARG_ATOI);
 		maxtime->max_meals = nb;
 	}

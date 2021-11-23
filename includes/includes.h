@@ -29,8 +29,8 @@
 typedef struct s_timespan
 {
 	long int		death;
-	int				eat;
-	int				sleep;
+	long int		eat;
+	long int		sleep;
 	int				max_meals;
 }					t_timespan;
 
@@ -78,60 +78,61 @@ typedef struct s_tracking_activity
 /*
 ** error_messages.c
 */
-int		err_arg_nb(int ac);
-int		err_arg_nbphilo(char *number);
-int		err_arg_time(void);
+int			err_arg_nb(int ac);
+int			err_arg_nbphilo(char *number);
+int			err_arg_time(void);
 
 /*
 ** forks.c
 */
-void	set_forks(t_philosopher *philo, t_data *data);
-int		take_forks(t_philosopher *philo);
-void	put_forks(t_philosopher *philo);
+void		set_forks(t_philosopher *philo, t_data *data);
+int			take_forks(t_philosopher *philo);
+void		put_forks(t_philosopher *philo);
 
 /*
 ** observing.c
 */
-void	observing_philos(t_philosopher *philos, t_data *data);
+void		observing_philos(t_philosopher *philos, t_data *data);
 
 /*
 ** parsing.c
 */
-int		parsing(int ac, char **av, t_philosopher **philosophers, t_data *data);
+int			parsing(int ac, char **av, t_philosopher **philosophers,
+				t_data *data);
 
 /*
 ** printing.c
 */
-void	talk(t_philosopher *philo, char *thing);
-void	announce_death(t_philosopher *philo);
-void	announce_end(t_data *data);
+void		talk(t_philosopher *philo, char *thing);
+void		announce_death(t_philosopher *philo);
+void		announce_end(t_data *data);
 
 /*
 ** transitions.c
 */
-void	thinking_to_eating(t_philosopher *philo);
-void	kill_philos(t_philosopher *philos, t_data *data);
+void		thinking_to_eating(t_philosopher *philo);
+void		kill_philos(t_philosopher *philos, t_data *data);
 
 /*
 ** utils_process.c
 */
-int		suicide(t_philosopher *philo);
-void	my_sleep(int target, t_philosopher *philo);
-void	one_philo(t_data *data);
+int			suicide(t_philosopher *philo);
+void		my_sleep(long int target, t_philosopher *philo);
+void		one_philo(t_data *data);
 
 /*
 ** utils_time.c
 */
-int		current_time(t_data *data);
-int		relative_time(t_philosopher *philo);
+int			current_time(t_data *data);
+int			relative_time(t_philosopher *philo);
 
 /*
 ** utils.c
 */
-int		get_val(pthread_mutex_t *mutex, int	*val);
-void	set_val(pthread_mutex_t *mutex, int val, int *where);
-int		ft_malloc(void **ptr, int size);
-int		ft_atoi(const char *number);
-int		free_all(t_philosopher *philosophers, t_data *data);
+int			get_val(pthread_mutex_t *mutex, int	*val);
+void		set_val(pthread_mutex_t *mutex, int val, int *where);
+int			ft_malloc(void **ptr, int size);
+long int	ft_atoi(const char *number);
+int			free_all(t_philosopher *philosophers, t_data *data);
 
 #endif

@@ -19,11 +19,11 @@ int	suicide(t_philosopher *philo)
 	return (1);
 }
 
-void	my_sleep(int target, t_philosopher *philo)
+void	my_sleep(long int target, t_philosopher *philo)
 {
-	while (relative_time(philo) < target
+	while (current_time(philo->data) < target
 		&& !get_val(&(philo->data->death_mutex), &(philo->data->dead)))
-		usleep(15);
+		usleep(100);
 }
 
 void	one_philo(t_data *data)

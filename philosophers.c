@@ -25,7 +25,7 @@ void	*philosophing(void *p)
 		if (suicide(philo))
 			break ;
 		talk(philo, "is sleeping");
-		my_sleep(relative_time(philo) + data->maxtime.sleep, philo);
+		my_sleep(current_time(philo->data) + data->maxtime.sleep, philo);
 		if (suicide(philo))
 			break ;
 		talk(philo, "is thinking");
